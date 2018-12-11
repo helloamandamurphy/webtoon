@@ -1,6 +1,8 @@
-require "webtoon/version"
+require "nokogiri"
+require "pry"
+require "open-uri"
 
-module Webtoon
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "./webtoon/cli"
+require_relative "./webtoon/comics"
+require_relative "./webtoon/scraper"
+require_relative "./webtoon/version"
