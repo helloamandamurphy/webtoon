@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "./lib/webtoon"
+require "bundler/setup"
+require "webtoon"
+
+Webtoon::CLI.new.call
