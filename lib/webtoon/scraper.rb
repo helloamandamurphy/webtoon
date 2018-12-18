@@ -2,28 +2,38 @@
 
 class Webtoon::Scraper
 
-  def self.genre_scraper
+  def self.genre_scraper #
     by_genre = {}
     doc = Nokogiri::HTML(open("https://www.webtoons.com/en/top"))
-    links = doc.css("div.left_area ul.ranking_tab").children.css("a").collect {|el| el.attr("href")}.each do |link|
-      genre_links << link.split("&")[0]
-    end
-    genre_names = doc.css("div.left_area ul.ranking_tab").children.css("a span").collect {|el| el.text.strip}
+    genre_links = doc.css("div.left_area ul.ranking_tab").children.css("a").collect {|el| el.attr("href")}
+    #genre_names = doc.css("div.left_area ul.ranking_tab").children.css("a span").collect {|el| el.text.strip}
 
-    #puts genre_links
-    #puts genre_names
+    genre_links.each do |link|
+      link.downcase!
+      if link.include? "all"
+        by_genre[:all] = link
+      elsif link.include? "action"
+        by_genre[:action_fantasy] = link
+      elsif link.include? "romance"
+        by_genre[:romance_drama] = link
+      elsif link.include? "comedy"
+        by_genre[:comedy] = link
+      elsif link.include? "slice of life"
+        by_genre[:slice_of_life]
+      elsif link.include? "others"
+        by_genre[:others] = link
+      end
+    end
+    by_genre
   end
 
   def self.target_scraper
     by_target = {}
     doc = Nokogiri::HTML(open("https://www.webtoons.com/en/top"))
     target_links = doc.css("div.right_area ul.ranking_tab").children.css("a").collect {|el| el.attr("href")}#.each do |link|
-      #target_links << link.split("&")[0]
-    #end
-    target_names = doc.css("div.right_area ul.ranking_tab").children.css("a span").collect {|el| el.text.strip}
+    
+    #target_names = doc.css("div.right_area ul.ranking_tab").children.css("a span").collect {|el| el.text.strip}
 
-    #puts target_links #(includes genre part of links)
-    #puts target_names #(Lacks necessary spaces between words)
   end
 
   def self.scrape_by_genre #scrapes top 10 comics by genre
