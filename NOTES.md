@@ -7,3 +7,11 @@ Goals of CLI Gem
 -Provide detailed information on requested comic (title, author, genre, description, rating score?)
 -Ask if they would like to return to the list or view a new category.
 -When user is done, say thank you and goodbye to the user.
+
+Data Structure
+by_genre = {all genre urls}
+by_target = {all target urls}
+  Use key to select url to be used in scrape_by_genre/scrape_by_target
+genre_comics = [{comic}, {comic}, {comic}], where comic = title, author, url
+genre_comics = [{comic}, {comic}, {comic}], where comic = title, author, url
+  Use key to select url to be used in scrape_page method

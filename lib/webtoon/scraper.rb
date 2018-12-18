@@ -53,45 +53,40 @@ class Webtoon::Scraper
   end
 
   def self.scrape_by_genre #scrapes top 10 comics by genre
-    comics = []
+    genre_comics = []
     doc = Nokogiri::HTML(open("https://www.webtoons.com/en/top")) #eventually pull this source through genre_links
     doc.css("div.left_area ul.lst_type1 li").each do |container|
       url = container.css("a").attr("href").value
       container.css("a div.info_area").each do |info|
         title = info.css("p.subj").text
         author = info.css("p.author").text
-        comics << {title: title, author: author, comic_url: url}
+        genre_comics << {title: title, author: author, comic_url: url}
       end
     end
-    puts comics
+    puts genre_comics
   end
 
   def self.scrape_by_target #scrapes top 10 comics by target readers
-    comics = []
+    target_comics = []
     doc = Nokogiri::HTML(open("https://www.webtoons.com/en/top")) #eventually pull this source through target_links
     doc.css("div.right_area ul.lst_type1 li").each do |container|
       url = container.css("a").attr("href").value
       container.css("a div.info_area").each do |info|
         title = info.css("p.subj").text
         author = info.css("p.author").text
-        comics << {title: title, author: author, comic_url: url}
+        target_comics << {title: title, author: author, comic_url: url}
       end
     end
-    puts comics
+    puts target_comics
+  end
+
+  def self.scrape_page
+    doc = Nokogiri::HTML(open("https://www.webtoons.com/en/romance/lore-olympus/list?title_no=1320"))
+    binding.pry
   end
 end
 
 
-#3) Scrape details from individual url.
-
-#Nested Data Structure
-#all comics = {
-  #by_genre = {}
-    #all = [
-      #{rank1}, {rank2,} {rank3}
-    #]
-  #by_target = {}
-#top10comics = [{rank, title, author}, {rank, title, author}, {etc.}]
 
 #comic = {
   #title
