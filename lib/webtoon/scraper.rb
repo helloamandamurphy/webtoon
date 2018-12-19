@@ -19,7 +19,7 @@ class Webtoon::Scraper
       elsif link.include? "comedy"
         by_genre[:comedy] = link
       elsif link.include? "slice of life"
-        by_genre[:slice_of_life]
+        by_genre[:slice_of_life] = link
       elsif link.include? "others"
         by_genre[:others] = link
       end
@@ -84,12 +84,13 @@ class Webtoon::Scraper
   def self.scrape_page
     comic = {}
 
-    doc = Nokogiri::HTML(open("https://www.webtoons.com/en/romance/lore-olympus/list?title_no=1320")) #replace this link with comic_url
+    doc = Nokogiri::HTML(open(comic_url))
       comic[:title] = doc.css("div.info h1").text
       comic[:author] = doc.css("div.info a").children.first.text
       comic[:genre] = doc.css("div.info h2").text
       comic[:description] = doc.css("p.summary").text
       comic[:rating] = doc.css("em.cnt").text
+      comic[:url] = comic_url
 
     comic
   end
