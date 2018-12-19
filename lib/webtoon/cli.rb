@@ -82,7 +82,7 @@ class Webtoon::CLI
     target_input = gets.strip.to_i
 
     if target_input == 1
-      puts "males 10s" #input needs to select use key to retrieve url, then pass through genre scraper, then print list.
+      puts "males 10s" #input needs to select use key to retrieve url, then pass through target scraper, then print list.
     elsif target_input == 2
       puts "females 10s"
     elsif target_input == 3
@@ -98,6 +98,24 @@ class Webtoon::CLI
     else
       target_options
     end
+
   end
 
+  def comic_details #(argument of target_input or genre_input)
+    #prints list
+    puts ""
+    puts "If you would like to learn more about a comic on this list, enter its rank."
+    puts "If you would like to return to the Main Menu, enter 0."
+
+    comic_selection = gets.strip.to_i
+
+      if comic_selection.between?(1,10)
+        puts "Comic details"
+      elsif comic_selection == 0
+        start
+      else
+        comic_details
+      end
+      #get comic_selection to retrieve the page_url for the comic with the rank equal to comic_selection and print details
+  end
 end
