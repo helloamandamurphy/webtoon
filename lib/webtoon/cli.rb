@@ -23,7 +23,7 @@ class Webtoon::CLI
     elsif menu_input == 2
       genre_options
     elsif menu_input == 3
-      puts "Target options"
+      target_options
     elsif menu_input == 4
       exit_program
     else
@@ -69,7 +69,7 @@ class Webtoon::CLI
   def target_options
     puts ""
     puts "Select your desired age and gender combination."
-    puts " Your options are as follows:"
+    puts "Your options are as follows:"
     puts ""
     puts "Enter 1 to view top ten comics for males ages 10-19."
     puts "Enter 2 to view top ten comics for females ages 10-19."
@@ -117,5 +117,28 @@ class Webtoon::CLI
         comic_details
       end
       #get comic_selection to retrieve the page_url for the comic with the rank equal to comic_selection and print details
+  end
+
+  def print_comic(comic)
+    puts ""
+    puts "----------- #{comic.name} -----------"
+    puts ""
+    puts "Author:             #{comic.artist}"
+    puts "Genre:              #{comic.genre}"
+    puts "Rating:             #{comic.rating}"
+    puts ""
+    puts "Description:"
+    puts "#{comic.description}"
+    puts "Website:            #{comic.comic_url}"
+    puts ""
+  end
+
+  def print_comics_genre#(input)
+    puts ""
+    puts "-----------Top Ten Genre Comics-----------"
+    puts ""
+    Webtoon::Comics.all.each.with_index(1) do |comic, index|
+      puts "#{index}. #{comic.name} by #{comic.author}"
+    end
   end
 end
