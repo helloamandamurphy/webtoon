@@ -1,4 +1,5 @@
 class Webtoon::CLI
+
   def call
     puts "Welcome Webtooner!"
     start
@@ -49,7 +50,7 @@ class Webtoon::CLI
     genre_input = gets.strip.to_i
 
     if genre_input == 1
-      puts "Top Ten Action / Fantasy comics"
+      puts "Top Ten Action / Fantasy comics" #input needs to select use key to retrieve url, then pass through genre scraper, then print list.
     elsif genre_input == 2
       puts "Top Ten Romance / Drama comics"
     elsif genre_input == 3
@@ -60,6 +61,42 @@ class Webtoon::CLI
       puts "Top Ten other genre comics"
     elsif genre_input == 6
       start
+    else
+      genre_options
+    end
+  end
+
+  def target_options
+    puts ""
+    puts "Select your desired age and gender combination."
+    puts " Your options are as follows:"
+    puts ""
+    puts "Enter 1 to view top ten comics for males ages 10-19."
+    puts "Enter 2 to view top ten comics for females ages 10-19."
+    puts "Enter 3 to view top ten comics for males ages 20-29."
+    puts "Enter 4 to view top ten comics for females ages 20-29."
+    puts "Enter 5 to view top ten comics for males ages 30-39."
+    puts "Enter 6 to view top ten comics for females ages 30-39."
+    puts "Enter 7 to return to the Main Menu."
+
+    target_input = gets.strip.to_i
+
+    if target_input == 1
+      puts "males 10s" #input needs to select use key to retrieve url, then pass through genre scraper, then print list.
+    elsif target_input == 2
+      puts "females 10s"
+    elsif target_input == 3
+      puts "males 20s"
+    elsif target_input == 4
+      puts "females 20s"
+    elsif target_input == 5
+      puts "males 30s"
+    elsif target_input == 6
+      puts "female 30s"
+    elsif target_input == 7
+      start
+    else
+      target_options
     end
   end
 
