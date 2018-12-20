@@ -16,6 +16,7 @@ class Webtoon::Comic
   end
 
   def self.create_from_array(list_array) #list array from CLI that uses Scraper
+    binding.pry
     list_array.each do |comic_hash|
       Webtoon::Comic.new(comic_hash)
     end

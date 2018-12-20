@@ -138,7 +138,6 @@ class Webtoon::CLI
 
   def self.make_genre_list(url)
     genre_comics = Webtoon::Scraper.scrape_by_genre(url)
-    binding.pry
     Webtoon::Comic.create_from_array(genre_comics)
   end
 

@@ -34,7 +34,7 @@ class Webtoon::Scraper
   def self.scrape_page(url)
     comic = {}
 
-    doc = Nokogiri::HTML(open("#{url}")
+    doc = Nokogiri::HTML(open(url))
       comic[:title] = doc.css("div.info h1").text
       comic[:author] = doc.css("div.info a").children.first.text
       comic[:genre] = doc.css("div.info h2").text
