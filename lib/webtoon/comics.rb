@@ -1,6 +1,6 @@
 class Webtoon::Comic
 
-  attr_accessor :title, :author, :genre, :description, :rating, :url
+  attr_accessor :title, :author, :genre, :description, :rating, :comic_url
 
   @@all = []
 
@@ -10,13 +10,13 @@ class Webtoon::Comic
 
   def initialize(comic_hash)
     comic_hash.each do |attribute, value|
+      binding.pry
       self.send("#{attribute}=", value)
     end
     @@all << self
   end
 
   def self.create_from_array(list_array) #list array from CLI that uses Scraper
-    binding.pry
     list_array.each do |comic_hash|
       Webtoon::Comic.new(comic_hash)
     end
