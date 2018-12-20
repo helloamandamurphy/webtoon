@@ -136,9 +136,10 @@ class Webtoon::CLI
       #get comic_selection to retrieve the page_url for the comic with the rank equal to comic_selection and print details
   end
 
-  def make_genre_list(url)
+  def self.make_genre_list(url)
     genre_comics = Webtoon::Scraper.scrape_by_genre(url)
-    create_from_array(genre_comics)
+    binding.pry
+    Webtoon::Comic.create_from_array(genre_comics)
   end
 
   def make_target_list(url)

@@ -13,7 +13,7 @@ class Webtoon::Scraper
         genre_comics << {title: title, author: author, comic_url: url}
       end
     end
-    puts genre_comics
+    genre_comics
   end
 
   def self.scrape_by_target(url) #scrapes top 10 comics by target readers
@@ -28,19 +28,19 @@ class Webtoon::Scraper
         target_comics << {title: title, author: author, comic_url: url}
       end
     end
-    puts target_comics
+    target_comics
   end
 
-  def self.scrape_page(comic_url)
+  def self.scrape_page(url)
     comic = {}
 
-    doc = Nokogiri::HTML(open(comic_url))
+    doc = Nokogiri::HTML(open("#{url}")
       comic[:title] = doc.css("div.info h1").text
       comic[:author] = doc.css("div.info a").children.first.text
       comic[:genre] = doc.css("div.info h2").text
       comic[:description] = doc.css("p.summary").text
       comic[:rating] = doc.css("em.cnt").text
-      comic[:url] = comic_url
+      comic[:url] = url
 
     comic
   end
