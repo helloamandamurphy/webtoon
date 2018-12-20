@@ -10,7 +10,6 @@ class Webtoon::Comic
 
   def initialize(comic_hash)
     comic_hash.each do |attribute, value|
-      binding.pry
       self.send("#{attribute}=", value)
     end
     @@all << self
