@@ -15,3 +15,14 @@ by_target = {all target urls}
 genre_comics = [{comic}, {comic}, {comic}], where comic = title, author, url
 genre_comics = [{comic}, {comic}, {comic}], where comic = title, author, url
   Use key to select url to be used in scrape_page method
+
+Okay, okay, how do we get this scraped data into our program?
+
+What should each class do?
+
+Scraper class
+-Let's try not scraping the URL's for the different genres/targets (hard code them.)
+-Scraper class needs to have three methods
+  1) scrape_by_genre(url) -scrapes top ten comics by selected genre
+  2) scrape_by_target(url) -scrapes top ten comics by selected target
+  3) scrape_page(comic_url) -scrapes details off comic page
