@@ -1,18 +1,18 @@
 class Webtoon::CLI
 
-@all = "https://www.webtoons.com/en/top"
-@action = "https://www.webtoons.com/en/top?rankingGenre=ACTION_FANTASY"
-@romance = "https://www.webtoons.com/en/top?rankingGenre=ROMANCE_DRAMA"
-@comedy = "https://www.webtoons.com/en/top?rankingGenre=COMEDY"
-@slice = "https://www.webtoons.com/en/top?rankingGenre=SLICE_OF_LIFE"
-@others = "https://www.webtoons.com/en/top?rankingGenre=OTHERS"
+@@all = "https://www.webtoons.com/en/top"
+@@action = "https://www.webtoons.com/en/top?rankingGenre=ACTION_FANTASY"
+@@romance = "https://www.webtoons.com/en/top?rankingGenre=ROMANCE_DRAMA"
+@@comedy = "https://www.webtoons.com/en/top?rankingGenre=COMEDY"
+@@slice = "https://www.webtoons.com/en/top?rankingGenre=SLICE_OF_LIFE"
+@@others = "https://www.webtoons.com/en/top?rankingGenre=OTHERS"
 
-@m10 = "https://www.webtoons.com/en/top?target=MALE10"
-@f10 = "https://www.webtoons.com/en/top?target=FEMALE10"
-@m20 = "https://www.webtoons.com/en/top?target=MALE20"
-@f20 = "https://www.webtoons.com/en/top?target=FEMALE20"
-@m30 = "https://www.webtoons.com/en/top?target=MALE30"
-@f30 = "https://www.webtoons.com/en/top?target=FEMALE30"
+@@m10 = "https://www.webtoons.com/en/top?target=MALE10"
+@@f10 = "https://www.webtoons.com/en/top?target=FEMALE10"
+@@m20 = "https://www.webtoons.com/en/top?target=MALE20"
+@@f20 = "https://www.webtoons.com/en/top?target=FEMALE20"
+@@m30 = "https://www.webtoons.com/en/top?target=MALE30"
+@@f30 = "https://www.webtoons.com/en/top?target=FEMALE30"
 
 
   def call
@@ -34,10 +34,9 @@ class Webtoon::CLI
     menu_input = gets.strip.to_i
 
     if menu_input == 1
-       run_genre("https://www.webtoons.com/en/top")
-       #make_genre_list("https://www.webtoons.com/en/top")
-       #print_comics
-       #comic_details
+      puts ""
+      puts "-----------Top Ten Comics-----------"
+      run_genre(@@all)
     elsif menu_input == 2
       genre_options
     elsif menu_input == 3
@@ -68,15 +67,25 @@ class Webtoon::CLI
     genre_input = gets.strip.to_i
 
     if genre_input == 1
-      puts "Top Ten Action / Fantasy comics" #input needs to select use key to retrieve url, then pass through genre scraper, then print list.
+      puts ""
+      puts "-------Top Ten Action / Fantasy comics-------"
+      run_genre(@@action)
     elsif genre_input == 2
-      puts "Top Ten Romance / Drama comics"
+      puts ""
+      puts "-------Top Ten Romance / Drama comics-------"
+      run_genre(@@romance)
     elsif genre_input == 3
-      puts "Top Ten Comedy comics"
+      puts ""
+      puts "------------Top Ten Comedy comics-----------"
+      run_genre(@@comedy)
     elsif genre_input == 4
-      puts "Top Ten Slice of Life comics"
+      puts ""
+      puts "--------Top Ten Slice of Life comics--------"
+      run_genre(@@slice)
     elsif genre_input == 5
-      puts "Top Ten other genre comics"
+      puts ""
+      puts "------------Top Ten Other comics------------"
+      run_genre(@@other)
     elsif genre_input == 6
       start
     else
@@ -100,17 +109,29 @@ class Webtoon::CLI
     target_input = gets.strip.to_i
 
     if target_input == 1
-      puts "males 10s" #input needs to select use key to retrieve url, then pass through target scraper, then print list.
+      puts ""
+      puts "---Top Ten Comics of Males Ages 10-19---"
+      run_genre(@@m10)
     elsif target_input == 2
-      puts "females 10s"
+      puts ""
+      puts "---Top Ten Comics of Females Ages 10-19---"
+      run_genre(@@f10)
     elsif target_input == 3
-      puts "males 20s"
+      puts ""
+      puts "---Top Ten Comics of Males Ages 20-29---"
+      run_genre(@@m20)
     elsif target_input == 4
-      puts "females 20s"
+      puts ""
+      puts "---Top Ten Comics of Females Ages 20-29---"
+      run_genre(@@f20)
     elsif target_input == 5
-      puts "males 30s"
+      puts ""
+      puts "---Top Ten Comics of Males Ages 30-39---"
+      run_genre(@@m30)
     elsif target_input == 6
-      puts "female 30s"
+      puts ""
+      puts "---Top Ten Comics of Females Ages 30-39---"
+      run_genre(@@f30)
     elsif target_input == 7
       start
     else
@@ -118,8 +139,9 @@ class Webtoon::CLI
     end
   end
 
-  def comic_details #(argument of target_input or genre_input)
-    #prints list
+  def comic_details
+    puts ""
+    puts "--------------------------------------------"
     puts ""
     puts "If you would like to learn more about a comic on this list, enter its rank."
     puts "If you would like to return to the Main Menu, enter 0."
@@ -154,7 +176,15 @@ class Webtoon::CLI
   end
 
   def run_genre(url)
+    Webtoon::Comic.clear_all
     make_genre_list(url)
+    print_comics
+    comic_details
+  end
+
+  def run_target(url)
+    Webtoon::Comic.clear_all
+    make_target_list(url)
     print_comics
     comic_details
   end
@@ -174,8 +204,6 @@ class Webtoon::CLI
   end
 
   def print_comics
-    puts ""
-    puts "-----------Top Ten Comics-----------"
     puts ""
     Webtoon::Comic.all.each.with_index(1) do |comic, index|
       puts "#{index}. #{comic.title} by #{comic.author}"

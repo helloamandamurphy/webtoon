@@ -31,4 +31,9 @@ class Webtoon::Comic
   def self.all
     @@all
   end
+
+  def self.clear_all
+    @@all.clear
+    @@all
+  end
 end
