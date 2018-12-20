@@ -149,7 +149,7 @@ class Webtoon::CLI
     comic_selection = gets.strip.to_i
 
       if comic_selection.between?(1,10)
-        puts "Comic details"
+        Webtoon::Comic.find(comic_selection)
       elsif comic_selection == 0
         start
       else
@@ -168,9 +168,10 @@ class Webtoon::CLI
     create_from_array(target_comics)
   end
 
-  def add_details_to_comics
+  def self.add_details_to_comics
+    #binding.pry
     Webtoon::Comic.all.each do |comic|
-      details = Webtoon::Scraper.add_comic_details(comic.url)
+      details = Webtoon::Scraper.scrape_page(comic.comic_url)
       comic.add_comic_details(details)
     end
   end
