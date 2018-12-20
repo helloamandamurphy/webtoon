@@ -1,5 +1,20 @@
 class Webtoon::CLI
 
+@all = "https://www.webtoons.com/en/top"
+@action = "https://www.webtoons.com/en/top?rankingGenre=ACTION_FANTASY"
+@romance = "https://www.webtoons.com/en/top?rankingGenre=ROMANCE_DRAMA"
+@comedy = "https://www.webtoons.com/en/top?rankingGenre=COMEDY"
+@slice = "https://www.webtoons.com/en/top?rankingGenre=SLICE_OF_LIFE"
+@others = "https://www.webtoons.com/en/top?rankingGenre=OTHERS"
+
+@m10 = "https://www.webtoons.com/en/top?target=MALE10"
+@f10 = "https://www.webtoons.com/en/top?target=FEMALE10"
+@m20 = "https://www.webtoons.com/en/top?target=MALE20"
+@f20 = "https://www.webtoons.com/en/top?target=FEMALE20"
+@m30 = "https://www.webtoons.com/en/top?target=MALE30"
+@f30 = "https://www.webtoons.com/en/top?target=FEMALE30"
+
+
   def call
     puts "Welcome Webtooner!"
     start
@@ -19,7 +34,10 @@ class Webtoon::CLI
     menu_input = gets.strip.to_i
 
     if menu_input == 1
-      Webtoon::Comic.new(by_genre.all)
+       #run_genre("https://www.webtoons.com/en/top")
+       make_genre_list("https://www.webtoons.com/en/top")
+       print_comics
+       comic_details
     elsif menu_input == 2
       genre_options
     elsif menu_input == 3
@@ -98,7 +116,6 @@ class Webtoon::CLI
     else
       target_options
     end
-
   end
 
   def comic_details #(argument of target_input or genre_input)
@@ -120,19 +137,27 @@ class Webtoon::CLI
   end
 
   def make_genre_list(url)
-    genre_comics = Webtoon::Scraper.scrape_by_genre
-    Webtoon::Comic.create_from_array(genre_comics)
+    genre_comics = Webtoon::Scraper.scrape_by_genre(url)
+    create_from_array(genre_comics)
   end
 
   def make_target_list(url)
     target_comics = Webtoon::Scraper.scrape_by_target
-    Webtoon::Comic.create_from_array(target_comics)
+    create_from_array(target_comics)
   end
 
   def add_details_to_comics
     Webtoon::Comic.all.each do |comic|
       details = Webtoon::Scraper.add_comic_details(comic.url)
       comic.add_comic_details(details)
+    end
+  end
+
+  def run_genre(url)
+    make_genre_list(url)
+    print_comics
+    comic_details
+  end
 
   def print_comic(comic)
     puts ""
@@ -148,9 +173,9 @@ class Webtoon::CLI
     puts ""
   end
 
-  def print_comics_genre#(input)
+  def print_comics
     puts ""
-    puts "-----------Top Ten Genre Comics-----------"
+    puts "-----------Top Ten Comics-----------"
     puts ""
     Webtoon::Comics.all.each.with_index(1) do |comic, index|
       puts "#{index}. #{comic.name} by #{comic.author}"
