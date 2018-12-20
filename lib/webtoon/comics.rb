@@ -4,18 +4,17 @@ class Webtoon::Comic
 
   @@all = []
 
-  def initialize(title=nil, author=nil, genre=nil, description=nil, rating=nil, url=nil)
-    @title = title
-    @author = author
-    @genre = genre
-    @description = description
-    @rating = rating
-    @url = url
+  def initialize(top_ten_hash)
+    top_ten_hash.each do |attribute, value|
+      self.send("#{attribute}=", value)
+    end
     @@all << self
   end
 
   def self.all
     @@all
   end
+
+   #genre=nil, description=nil, rating=nil,
 
 end

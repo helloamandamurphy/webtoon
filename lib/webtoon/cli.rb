@@ -19,7 +19,7 @@ class Webtoon::CLI
     menu_input = gets.strip.to_i
 
     if menu_input == 1
-      puts "Top 10 Comics"
+      Webtoon::Comic.new(by_genre.all)
     elsif menu_input == 2
       genre_options
     elsif menu_input == 3
@@ -117,6 +117,16 @@ class Webtoon::CLI
         comic_details
       end
       #get comic_selection to retrieve the page_url for the comic with the rank equal to comic_selection and print details
+  end
+
+  def make_genre_list
+    genre_comics = Webtoon::Scraper.scrape_by_genre
+    Webtoon::Comic.create_from_array(genre_comics)
+  end
+
+  def make_target_list
+    target_comics = Webtoon::Scraper.scrape_by_target
+    Webtoon::Comic.create_from_array(target_comics)
   end
 
   def print_comic(comic)
