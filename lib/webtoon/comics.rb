@@ -4,17 +4,31 @@ class Webtoon::Comic
 
   @@all = []
 
-  def initialize(top_ten_hash)
-    top_ten_hash.each do |attribute, value|
+  #def new_from_genre(url)
+    #genre_comics_array = Webtoon::Scraper.scrape_by_genre(url)
+  #end
+
+  def initialize(comic_hash)
+    comic_hash.each do |attribute, value|
       self.send("#{attribute}=", value)
     end
     @@all << self
   end
 
+  def self.create_from_array(list_array) #list array from CLI that uses Scraper
+    list_array.each do |comic_hash|
+      Webtoon::Comic.new(comic_hash)
+    end
+  end
+
+  def add_comic_details(details_hash)
+    details_hash.each do |detail, value|
+      self.send("#{detail}=", value)
+    end
+    self
+  end
+
   def self.all
     @@all
   end
-
-   #genre=nil, description=nil, rating=nil,
-
 end
