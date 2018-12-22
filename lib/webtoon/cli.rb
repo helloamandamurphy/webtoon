@@ -111,27 +111,27 @@ class Webtoon::CLI
     if target_input == 1
       puts ""
       puts "---Top Ten Comics of Males Ages 10-19---"
-      run_genre(@@m10)
+      run_target(@@m10)
     elsif target_input == 2
       puts ""
       puts "---Top Ten Comics of Females Ages 10-19---"
-      run_genre(@@f10)
+      run_target(@@f10)
     elsif target_input == 3
       puts ""
       puts "---Top Ten Comics of Males Ages 20-29---"
-      run_genre(@@m20)
+      run_target(@@m20)
     elsif target_input == 4
       puts ""
       puts "---Top Ten Comics of Females Ages 20-29---"
-      run_genre(@@f20)
+      run_target(@@f20)
     elsif target_input == 5
       puts ""
       puts "---Top Ten Comics of Males Ages 30-39---"
-      run_genre(@@m30)
+      run_target(@@m30)
     elsif target_input == 6
       puts ""
       puts "---Top Ten Comics of Females Ages 30-39---"
-      run_genre(@@f30)
+      run_target(@@f30)
     elsif target_input == 7
       start
     else
