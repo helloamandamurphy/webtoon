@@ -1,8 +1,6 @@
 # Webtoon
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/webtoon`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome Webtooner. This CLI Gem will provide you with information regarding the top digital comics from the app and website Webtoon. You can view top ten comics overall, by genre, or by age/gender selectors. After viewing a top ten list, you can select a comic on the list to view more information about the individual comic including comic title, comic author(s), comic genre, comic rating, comic description, and comic url where you can read the comic yourself.
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To begin using the CLI gem, type `bin/webtoon` into your terminal. From there, the gem will provide you with instructions on how to make your selections.
 
 ## Development
 
@@ -33,6 +31,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/'helloamandamurphy'/webtoon. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## Author
+
+Amanda Murphy was the singular author for this CLI gem. This is her first time creating a gem from scratch as part of her full stack web development studies through Flatiron School in New York.
+
+Future projects and school labs can be found on her GitHub account here: https://github.com/helloamandamurphy
 
 ## License
 
