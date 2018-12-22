@@ -44,7 +44,7 @@ class Webtoon::CLI
     elsif menu_input == 4
       exit_program
     else
-     call #prompts user with Main Menu options when user input is invalid
+     call
     end
  end
 
