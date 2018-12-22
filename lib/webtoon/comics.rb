@@ -37,6 +37,10 @@ class Webtoon::Comic
     @@all
   end
 
+  def self.find(input)
+    self.all[input-1]
+  end
+
   def self.clear_all
     @@all.clear
     @@all

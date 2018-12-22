@@ -146,33 +146,60 @@ class Webtoon::CLI
     puts "If you would like to learn more about a comic on this list, enter its rank."
     puts "If you would like to return to the Main Menu, enter 0."
 
-    comic_selection = gets.strip.to_i
+    selection_input = gets.strip.to_i
 
-      if comic_selection.between?(1,10)
-        Webtoon::Comic.find(comic_selection)
+      if selection_input.between?(1,10)
+        selected_comic = Webtoon::Comic.find(selection_input)
+        print_comic(selected_comic)
+        view_another_comic
       elsif comic_selection == 0
         start
       else
+        puts ""
+        puts "Please try again."
         comic_details
       end
-      #get comic_selection to retrieve the page_url for the comic with the rank equal to comic_selection and print details
+  end
+
+  def view_another_comic
+    puts ""
+    puts "Would you like to view another comic?"
+    puts ""
+    puts "Enter 1 to return to the previous top ten list, where you can select and view details on another comic."
+    puts "Enter 2 to return to Main Menu."
+    puts "Enter 3 to exit."
+
+    return_input = gets.strip.to_i
+
+    if return_input == 1
+      print_comics
+      comic_details
+    elsif return_input == 2
+      start
+    elsif return_input == 3
+      exit_program
+    else
+      puts "Please try again."
+      view_another_comic
+    end
   end
 
   def make_genre_list(url)
     genre_comics = Webtoon::Scraper.scrape_by_genre(url)
     Webtoon::Comic.create_from_array(genre_comics)
+    Webtoon::CLI.add_details_to_comics
   end
 
   def make_target_list(url)
-    target_comics = Webtoon::Scraper.scrape_by_target
-    create_from_array(target_comics)
+    target_comics = Webtoon::Scraper.scrape_by_target(url)
+    Webtoon::Comic.create_from_array(target_comics)
+    Webtoon::CLI.add_details_to_comics
   end
 
   def self.add_details_to_comics
-    #binding.pry
     Webtoon::Comic.all.each do |comic|
-      details = Webtoon::Scraper.scrape_page(comic.comic_url)
-      comic.add_comic_details(details)
+      details_hash = Webtoon::Scraper.scrape_page(comic.comic_url)
+      comic.add_comic_details(details_hash)
     end
   end
 
@@ -192,14 +219,13 @@ class Webtoon::CLI
 
   def print_comic(comic)
     puts ""
-    puts "----------- #{comic.name} -----------"
+    puts "----------- #{comic.title} -----------"
     puts ""
-    puts "Author:             #{comic.artist}"
+    puts "Author:             #{comic.author}"
     puts "Genre:              #{comic.genre}"
     puts "Rating:             #{comic.rating}"
     puts ""
-    puts "Description:"
-    puts "#{comic.description}"
+    puts "Description:        #{comic.description}"
     puts "Website:            #{comic.comic_url}"
     puts ""
   end
