@@ -25,7 +25,7 @@ class Webtoon::Comic
   end
 
   def self.find(input)
-    Webtoon::CLI.add_details_to_comics
+    Webtoon::CLI.add_details_to_comic
     print_comic(self.all[input-1])
   end
 
